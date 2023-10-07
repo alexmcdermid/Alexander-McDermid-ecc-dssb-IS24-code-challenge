@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Table from 'react-bootstrap/Table';
 import { usePersona } from '../controllers/PersonaContext';
+import Container from 'react-bootstrap/esm/Container';
 
 function ProductList() {
   const { currentPersona } = usePersona();
@@ -26,10 +27,10 @@ function ProductList() {
 
 
   return (
-    <div>
+    <Container fluid>
       <h1>List of Products at ECC</h1>
       <p>Total number of products at ECC: {products.length}</p>
-      <Table striped bordered hover>
+      <Table responsive striped bordered hover>
         <thead>
           <tr>
             <th>Product Number</th>
@@ -61,7 +62,7 @@ function ProductList() {
           ))}
         </tbody>
       </Table>
-    </div>
+    </Container>
   );
 }
 
