@@ -67,6 +67,7 @@ function ProductList() {
               onChange={handleSearchChange}
               aria-label={currentPersona === 'Lisa' ? 'Search by Scrum Master Name' : 'Search by Developer Name'}
               aria-describedby="basic-addon1"
+              style={{ minWidth: '150px'}}
             />
           </InputGroup>
         </Container>
