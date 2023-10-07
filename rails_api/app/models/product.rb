@@ -9,7 +9,29 @@ class Product
   attr_accessor :productId, :productName, :productOwnerName, :Developers, :scrumMasterName, :startDate, :methodology, :location
 
   validates :productId, presence: true
+  validate :product_id_must_be_unique # this would usually be done with activerecord (ORM)
+
+  def product_id_must_be_unique
+    existing_product = self.class.find_by_product_id(productId)
+    if existing_product && existing_product != self
+      errors.add(:productId, 'must be unique')
+    end
+  end
+
   validates :productName, presence: true
+
+  # add initializer so we don't have nil issues in frontend
+  def initialize(attributes = {})
+    super
+    @productId ||= nil
+    @productName ||= nil
+    @productOwnerName ||= nil
+    @Developers ||= []
+    @scrumMasterName ||= nil
+    @startDate ||= nil
+    @methodology ||= nil
+    @location ||= nil
+  end
 
   # Class instance variable to simulate a "database"
   @products = []
@@ -42,10 +64,16 @@ class Product
     end
 
     def find_by_product_id(id)
-      products.find { |product| product.product_id == id.to_i }
+      products.find { |product| product.productId == id.to_i }
     end
   end
 
   # call the method to actual initialize products
   initialize_products
+
+  def update(attributes)
+    attributes.each do |key, value|
+      send("#{key}=", value) if respond_to?("#{key}=")
+    end
+  end
 end
