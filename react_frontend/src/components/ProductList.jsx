@@ -10,16 +10,29 @@ function ProductList() {
   const [products, setProducts] = useState([]); // State for storing products
   const [searchQuery, setSearchQuery] = useState('');
 
-  const filteredProducts = products.filter((product) =>
-  product.scrumMasterName
-    .toLowerCase()
-    .split(' ')
-    .some((namePart) => namePart.includes(searchQuery.toLowerCase()))  
-  );
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
+
+  let filteredProducts;
+
+  if (currentPersona === 'Lisa') {
+    // Lisa's search logic (filter by scrumMasterName)
+    filteredProducts = products.filter((product) =>
+      product.scrumMasterName
+        .toLowerCase()
+        .split(' ')
+        .some((namePart) => namePart.includes(searchQuery.toLowerCase()))
+    );
+  } else if (currentPersona === 'Alan') {
+    // Alan's search logic (filter by Developers)
+    filteredProducts = products.filter((product) =>
+      product.Developers
+        .map((name) => name.toLowerCase())
+        .some((name) => name.includes(searchQuery.toLowerCase()))
+    );
+  }
 
   useEffect(() => {
     // Define a function to fetch products from the API
@@ -44,21 +57,19 @@ function ProductList() {
     <Container fluid>
       <h1>List of Products at ECC</h1>
       <p>Total number of products at ECC: {products.length}</p>
-      {currentPersona === 'Lisa' && (     
         <Container>
           <InputGroup className="mb-3">
-            <InputGroup.Text id="basic-addon1">Search by Scrum Master Name</InputGroup.Text>
+            <InputGroup.Text id="basic-addon1">{currentPersona === 'Lisa' ? 'Search by Scrum Master Name' : 'Search by Developer Name'}</InputGroup.Text>
             <Form.Control
               type="text"
               placeholder='Example: Alex McDermid'
               value={searchQuery}
               onChange={handleSearchChange}
-              aria-label="Search by Scrum Master Name"
+              aria-label={currentPersona === 'Lisa' ? 'Search by Scrum Master Name' : 'Search by Developer Name'}
               aria-describedby="basic-addon1"
             />
           </InputGroup>
         </Container>
-      )}
       <Table responsive striped bordered hover>
         <thead>
           <tr>
