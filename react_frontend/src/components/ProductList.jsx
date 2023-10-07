@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import Table from 'react-bootstrap/Table';
 import InputGroup from 'react-bootstrap/InputGroup'
 import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/esm/Button';
 import { usePersona } from '../controllers/PersonaContext';
 import Container from 'react-bootstrap/esm/Container';
+import {MdClear} from 'react-icons/md'
 
 function ProductList() {
   const { currentPersona } = usePersona();
@@ -69,6 +71,9 @@ function ProductList() {
               aria-describedby="basic-addon1"
               style={{ minWidth: '150px'}}
             />
+            <Button variant="outline-secondary" id="button-addon2" onClick={() => {setSearchQuery("")}}>
+              <MdClear />
+            </Button>
           </InputGroup>
         </Container>
       <Table responsive striped bordered hover>
