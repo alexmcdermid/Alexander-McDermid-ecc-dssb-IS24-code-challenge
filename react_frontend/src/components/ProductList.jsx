@@ -1,11 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import Table from 'react-bootstrap/Table';
+import InputGroup from 'react-bootstrap/InputGroup'
+import Form from 'react-bootstrap/Form'
 import { usePersona } from '../controllers/PersonaContext';
 import Container from 'react-bootstrap/esm/Container';
 
 function ProductList() {
   const { currentPersona } = usePersona();
   const [products, setProducts] = useState([]); // State for storing products
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const filteredProducts = products.filter((product) =>
+  product.scrumMasterName
+    .toLowerCase()
+    .split(' ')
+    .some((namePart) => namePart.includes(searchQuery.toLowerCase()))  
+  );
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
 
   useEffect(() => {
     // Define a function to fetch products from the API
@@ -30,6 +44,21 @@ function ProductList() {
     <Container fluid>
       <h1>List of Products at ECC</h1>
       <p>Total number of products at ECC: {products.length}</p>
+      {currentPersona === 'Lisa' && (     
+        <Container>
+          <InputGroup className="mb-3">
+            <InputGroup.Text id="basic-addon1">Search by Scrum Master Name</InputGroup.Text>
+            <Form.Control
+              type="text"
+              placeholder='Example: Alex McDermid'
+              value={searchQuery}
+              onChange={handleSearchChange}
+              aria-label="Search by Scrum Master Name"
+              aria-describedby="basic-addon1"
+            />
+          </InputGroup>
+        </Container>
+      )}
       <Table responsive striped bordered hover>
         <thead>
           <tr>
@@ -41,10 +70,13 @@ function ProductList() {
             <th>Start Date</th>
             <th>Methodology</th>
             <th>Location</th>
+            {currentPersona === 'Alan' && (
+              <th>Edit</th>
+            )}
           </tr>
         </thead>
         <tbody>
-          {products.map((product) => (
+          {filteredProducts.map((product) => (
             <tr key={product.productId}>
               <td>{product.productId}</td>
               <td>{product.productName}</td>
@@ -58,6 +90,9 @@ function ProductList() {
                   {product.location}
                 </a>
               </td>
+              {currentPersona === 'Alan' && (
+                <th>Edit</th>
+              )}
             </tr>
           ))}
         </tbody>

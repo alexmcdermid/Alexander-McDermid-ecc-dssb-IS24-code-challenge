@@ -21,13 +21,15 @@ class Product
 
     # Initialize with 40 example products
     def initialize_products
+      random_name = RandomNameGenerator.new
+      random_name_syllables = 3
       1.upto(40) do |i|
         products << new(
           productId: i,
           productName: "Product #{i}",
-          productOwnerName: "Owner #{i}",
-          Developers: ["Dev_#{i}_1", "Dev_#{i}_2", "Dev_#{i}_3", "Dev_#{i}_4", "Dev_#{i}_5"],
-          scrumMasterName: "ScrumMaster #{i}",
+          productOwnerName: random_name.compose(random_name_syllables),
+          Developers: [random_name.compose(random_name_syllables), random_name.compose(random_name_syllables), random_name.compose(random_name_syllables), random_name.compose(random_name_syllables), random_name.compose(random_name_syllables)],
+          scrumMasterName: random_name.compose(random_name_syllables),
           startDate: Date.today - i.days,
           methodology: "Agile",
           location: "Location #{i}"
