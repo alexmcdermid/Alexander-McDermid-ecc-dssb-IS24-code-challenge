@@ -1,10 +1,14 @@
-import logo from './logo.svg';
 import './App.css';
+import { ThemeProvider } from './controllers/ThemeContext';
+import Navbar from './components/Navbar'
 
 function App() {
   return (
-    <div className="App">
-    </div>
+    <ThemeProvider>
+      <div className="App">
+          <Navbar></Navbar>
+      </div>
+    </ThemeProvider>
   );
 }
 
