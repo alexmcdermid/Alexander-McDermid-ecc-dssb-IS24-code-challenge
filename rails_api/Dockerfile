@@ -4,11 +4,9 @@ FROM ruby:3.1.2
 # Set the working directory inside the container
 WORKDIR /app
 
-# Copy Gemfile and to the working directory
-COPY Gemfile ./
-
-# Install dependencies
-RUN bundle install
+# Install bundler and bundle install
+COPY Gemfile Gemfile.lock ./
+RUN gem install bundler && bundle install
 
 # Copy the current directory contents into the container at /app
 COPY . .
