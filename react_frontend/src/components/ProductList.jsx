@@ -23,14 +23,14 @@ function ProductList() {
       product.scrumMasterName
         .toLowerCase()
         .split(' ')
-        .some((namePart) => namePart.includes(searchQuery.toLowerCase()))
-    );
+        .some((namePart) => namePart.startsWith(searchQuery.toLowerCase()))
+        );
   } else if (currentPersona === 'Alan') {
     // Alan's search logic (filter by Developers)
     filteredProducts = products.filter((product) =>
       product.Developers
         .map((name) => name.toLowerCase())
-        .some((name) => name.includes(searchQuery.toLowerCase()))
+        .some((name) => name.startsWith(searchQuery.toLowerCase()))
     );
   }
 
