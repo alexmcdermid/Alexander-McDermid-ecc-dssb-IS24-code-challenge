@@ -109,6 +109,7 @@ function ProductList() {
           ))}
         </tbody>
       </Table>
+      {filteredProducts.length < products.length && <p>Total number of search results: {filteredProducts.length}</p>}
     </Container>
   );
 }
