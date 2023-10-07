@@ -71,7 +71,7 @@ function ProductList() {
               aria-describedby="basic-addon1"
               style={{ minWidth: '150px'}}
             />
-            <Button variant="outline-secondary" id="button-addon2" onClick={() => {setSearchQuery("")}}>
+            <Button variant="outline-secondary" onClick={() => {setSearchQuery("")}}>
               <MdClear />
             </Button>
           </InputGroup>
