@@ -5,7 +5,7 @@ FROM ruby:3.1.2
 WORKDIR /app
 
 # Install bundler and bundle install
-COPY Gemfile ./
+COPY Gemfile Gemfile.lock ./
 RUN gem install bundler && bundle install
 
 # Copy the current directory contents into the container at /app
