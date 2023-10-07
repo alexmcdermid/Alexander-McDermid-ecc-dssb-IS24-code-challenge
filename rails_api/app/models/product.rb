@@ -6,10 +6,10 @@ class Product
   include ActiveModel::Model
   include ActiveModel::Serialization
 
-  attr_accessor :product_id, :product_name, :product_owner_name, :developers, :scrum_master_name, :start_date, :methodology, :location
+  attr_accessor :productId, :productName, :productOwnerName, :Developers, :scrumMasterName, :startDate, :methodology, :location
 
-  validates :product_id, presence: true
-  validates :product_name, presence: true
+  validates :productId, presence: true
+  validates :productName, presence: true
 
   # Class instance variable to simulate a "database"
   @products = []
@@ -23,12 +23,12 @@ class Product
     def initialize_products
       1.upto(40) do |i|
         products << new(
-          product_id: i,
-          product_name: "Product #{i}",
-          product_owner_name: "Owner #{i}",
-          developers: ["Dev_#{i}_1", "Dev_#{i}_2", "Dev_#{i}_3", "Dev_#{i}_4", "Dev_#{i}_5"],
-          scrum_master_name: "ScrumMaster #{i}",
-          start_date: Date.today - i.days,
+          productId: i,
+          productName: "Product #{i}",
+          productOwnerName: "Owner #{i}",
+          Developers: ["Dev_#{i}_1", "Dev_#{i}_2", "Dev_#{i}_3", "Dev_#{i}_4", "Dev_#{i}_5"],
+          scrumMasterName: "ScrumMaster #{i}",
+          startDate: Date.today - i.days,
           methodology: "Agile",
           location: "Location #{i}"
         )
