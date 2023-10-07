@@ -44,17 +44,17 @@ function ProductList() {
         </thead>
         <tbody>
           {products.map((product) => (
-            <tr key={product.id}>
-              <td>{product.productNumber}</td>
+            <tr key={product.productId}>
+              <td>{product.productId}</td>
               <td>{product.productName}</td>
-              <td>{product.scrumMaster}</td>
-              <td>{product.productOwner}</td>
-              <td>{product.developerNames}</td>
+              <td>{product.scrumMasterName}</td>
+              <td>{product.productOwnerName}</td>
+              <td>{product.Developers.join(', ')}</td>
               <td>{product.startDate}</td>
               <td>{product.methodology}</td>
               <td>
-                <a href={product.githubRepoLink} target="_blank" rel="noopener noreferrer">
-                  {product.githubRepoLink}
+              <a href={`https://github.com/bcgov/${product.location}`} target="_blank" rel="noopener noreferrer">
+                  {product.location}
                 </a>
               </td>
             </tr>
