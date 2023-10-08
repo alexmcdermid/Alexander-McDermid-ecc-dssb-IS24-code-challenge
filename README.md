@@ -8,7 +8,6 @@ This repository contains a web application that tracks and manages Web Applicati
 - [Technologies](#technologies)
 - [Prerequisites](#prerequisites)
 - [Getting Started](#getting-started)
-- [Contact](#contact)
 
 ## Features
 ### Core Features
@@ -92,3 +91,4 @@ If you're running the frontend without Docker, you will npm. Run the following c
 cd react_frontend
 npm install
 npm start
+```
