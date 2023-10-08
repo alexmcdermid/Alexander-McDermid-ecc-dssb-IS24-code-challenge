@@ -28,10 +28,15 @@ module Api
 
     def update
       @product = Product.find_by_product_id(params[:id])
-      if @product && @product.update(product_params)
-        render json: @product
+      if @product.present?
+        @product.update(product_params)
+        if @product.valid?
+          render json: @product
+        else
+          render json: @product.errors, status: :unprocessable_entity
+        end
       else
-        render json: @product.errors, status: :unprocessable_entity
+        render json: { error: "Product not found" }, status: :not_found
       end
     end
 

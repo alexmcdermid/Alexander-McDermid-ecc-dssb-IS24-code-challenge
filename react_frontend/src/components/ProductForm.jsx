@@ -13,6 +13,18 @@ const ProductForm = ({ show, handleClose, isEdit, productData: initialProductDat
     methodology: ''
   });
 
+  const resetForm = () => {
+    setProductData({
+      productId: '',
+      productName: '',
+      productOwnerName: '',
+      Developers: Array(5).fill(''),
+      startDate: '',
+      methodology: ''
+    });
+    setErrorMessage([]) // remove error messages if any
+  };
+
   const formatErrors = (errors) => {
     const formattedErrors = Object.keys(errors).map((key) => {
       return `${key} : ${errors[key].join(', ')}`
@@ -21,10 +33,14 @@ const ProductForm = ({ show, handleClose, isEdit, productData: initialProductDat
   }
 
   useEffect(() => {
-    if (isEdit) {
-      setProductData(initialProductData);
+    if (!show) {
+      resetForm();
+    } else {
+      if (isEdit) {
+        setProductData(initialProductData);
+      }
     }
-  }, [isEdit, initialProductData]);
+  }, [isEdit, initialProductData, show]);
 
   const handleSubmit = async () => {
     try {
@@ -50,20 +66,7 @@ const ProductForm = ({ show, handleClose, isEdit, productData: initialProductDat
       if (response.ok) {
         const data = await response.json();
         onRefreshProducts(); // Refresh the product list in the parent component
-        setShowSuccessAlert(true);
-  
-        // Reset the form data to initial state
-        setProductData({
-          productId: '',
-          productName: '',
-          productOwnerName: '',
-          Developers: Array(5).fill(''),
-          startDate: '',
-          methodology: ''
-        });
-
-        setErrorMessage([]) // remove error messages if any
-  
+        setShowSuccessAlert(true);  
         setTimeout(() => {
           setShowSuccessAlert(false); // Hide success alert after 5 seconds
         }, 5000);

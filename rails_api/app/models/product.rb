@@ -15,6 +15,18 @@ class Product
   # these would usually be done with activerecord (ORM)
   validate :product_id_must_be_unique
   validate :developers_must_be_array_of_strings
+  validate :start_date_must_be_valid
+
+  def start_date_must_be_valid
+    begin
+      parsed_date = Date.parse(startDate.to_s)
+      unless parsed_date.strftime('%Y-%m-%d') == startDate
+        errors.add(:startDate, 'must be in the format YYYY-MM-DD')
+      end
+    rescue ArgumentError
+      errors.add(:startDate, 'must be a valid date in the format YYYY-MM-DD')
+    end
+  end
 
   def product_id_must_be_unique
     existing_product = self.class.find_by_product_id(productId)
