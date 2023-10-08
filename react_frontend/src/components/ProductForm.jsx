@@ -43,6 +43,15 @@ const ProductForm = ({ show, handleClose, isEdit, productData: initialProductDat
           const data = await response.json();
           onRefreshProducts(); // Refresh the product list in the parent component
           setShowSuccessAlert(true);
+          // Reset the form data to initial state
+          setProductData({
+            productId: '',
+            productName: '',
+            productOwnerName: '',
+            Developers: Array(5).fill(''),
+            startDate: '',
+            methodology: ''
+          });
           setTimeout(() => {
             setShowSuccessAlert(false); // Hide success alert after 5 seconds
           }, 5000);
