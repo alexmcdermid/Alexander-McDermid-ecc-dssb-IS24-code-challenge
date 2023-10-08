@@ -85,7 +85,7 @@ If you want to run the Rails backend without Docker, you'll need Ruby and Rails 
 
 #### For Frontend
 
-If you're running the frontend without Docker, you will npm. Run the following commands:
+If you're running the frontend without Docker, you will need npm. Run the following commands:
 
 ```bash
 cd react_frontend
