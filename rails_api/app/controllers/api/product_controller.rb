@@ -1,6 +1,7 @@
-# app/controllers/api/products_controller.rb
+# frozen_string_literal: true
 
 module Api
+  # app/controllers/api/products_controller.rb
   class ProductController < ApplicationController
     def index
       render json: Product.all
