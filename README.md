@@ -11,9 +11,18 @@ This repository contains a web application that tracks and manages Web Applicati
 - [Contact](#contact)
 
 ## Features
+### Core Features
+- **View All Products**: Any user can view a list of all products within ECC along with relevant details such as Product Number, Product Name, Scrum Master, Product Owner, Developer Names, Start Date, Methodology, and Location (GitHub repository link).
+- **Add New Product**: Lisa can add a new product to the list. They must fill in all necessary information including Product Name, Scrum Master, Product Owner, Developer Names, Start Date, and Methodology.
+- **Edit Existing Product**: Alan can edit existing product details. Fields available for editing include Product Name, Scrum Master, Product Owner, Developer Names, Methodology, and Location (GitHub repository link).
 
-- **User Stories**: User stories.
-- **Search Feature**: Search for product resource names.
+### Bonus Features
+- **Search by Scrum Master**: Users can search for products by the name of the Scrum Master. The list will update to only show products where the searched Scrum Master is involved.
+- **Search by Developer**: Users can search for products by the name of a Developer. The list will update to only show products where the searched Developer is involved.
+
+### Additional Information
+- **Automatic Product Number Generation**: When adding a new product, the Product Number is automatically generated and will not collide with existing Product Numbers.
+- **Data Persistence**: Any added or edited data persists even after a page refresh.
 
 ## Technologies
 
@@ -35,10 +44,15 @@ To run the solution using Docker Compose, you'll find a `docker-compose.yml` fil
 
     ```bash
     git clone https://github.com/alexmcdermid/Alexander-McDermid-ecc-dssb-IS24-code-challenge.git
-    cd your-repo
     ```
 
-2. Run Docker Compose.
+2. Navigate into the cloned repository.
+
+    ```bash
+    cd Alexander-McDermid-ecc-dssb-IS24-code-challenge
+    ```
+
+3. Run Docker Compose.
 
     ```bash
     docker-compose up
