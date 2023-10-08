@@ -28,43 +28,55 @@ const ProductForm = ({ show, handleClose, isEdit, productData: initialProductDat
 
   const handleSubmit = async () => {
     try {
+      let response;
       if (isEdit) {
-        // API call to update the product
+        response = await fetch(`http://localhost:3000/api/product/${initialProductData.productId}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(productData),
+        });
       } else {
-        const response = await fetch(`http://localhost:3000/api/product`, {
+        response = await fetch(`http://localhost:3000/api/product`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(productData),
         });
+      }
   
-        if (response.ok) {
-          const data = await response.json();
-          onRefreshProducts(); // Refresh the product list in the parent component
-          setShowSuccessAlert(true);
-          // Reset the form data to initial state
-          setProductData({
-            productId: '',
-            productName: '',
-            productOwnerName: '',
-            Developers: Array(5).fill(''),
-            startDate: '',
-            methodology: ''
-          });
-          setTimeout(() => {
-            setShowSuccessAlert(false); // Hide success alert after 5 seconds
-          }, 5000);
-          handleClose();
-        } else {
-          const errorData = await response.json();
-          setErrorMessage(formatErrors(errorData) || 'Failed to create new product.');
-        }
+      if (response.ok) {
+        const data = await response.json();
+        onRefreshProducts(); // Refresh the product list in the parent component
+        setShowSuccessAlert(true);
+  
+        // Reset the form data to initial state
+        setProductData({
+          productId: '',
+          productName: '',
+          productOwnerName: '',
+          Developers: Array(5).fill(''),
+          startDate: '',
+          methodology: ''
+        });
+
+        setErrorMessage([]) // remove error messages if any
+  
+        setTimeout(() => {
+          setShowSuccessAlert(false); // Hide success alert after 5 seconds
+        }, 5000);
+  
+        handleClose();
+      } else {
+        const errorData = await response.json();
+        setErrorMessage(formatErrors(errorData) || 'Failed to create or update the product.');
       }
     } catch (error) {
       setErrorMessage('An unexpected error occurred.');
     }
-  };
+  };  
   
   const handleChange = (e) => {
     const { name, value } = e.target;
