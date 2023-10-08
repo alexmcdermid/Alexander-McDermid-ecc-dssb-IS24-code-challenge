@@ -15,7 +15,7 @@ class Product
 
   # these would usually be done with activerecord (ORM)
   validate :product_id_must_be_unique
-  validate :developers_must_be_array_of_strings_and_not_empty
+  validate :developers_must_be_array_of_strings_and_not_empty_and_max_five
   validate :start_date_must_be_valid
   validates :methodology, inclusion: { in: ['Agile', 'Waterfall'], message: "can't be blank, select Agile or Waterfall" }  
 
@@ -37,7 +37,7 @@ class Product
     end
   end
 
-  def developers_must_be_array_of_strings_and_not_empty
+  def developers_must_be_array_of_strings_and_not_empty_and_max_five
     developers = self.Developers || [] # Access as an attribute
 
     unless developers.is_a?(Array) && developers.all? { |item| item.is_a?(String) }
@@ -48,6 +48,10 @@ class Product
 
     if non_empty_developers.empty? || non_empty_developers.length < 1
       errors.add(:Developers, "at least one developer must be present")
+    end
+
+    if non_empty_developers.length > 5
+      errors.add(:Developers, "maximum of 5 developers allowed")
     end
   end
 
