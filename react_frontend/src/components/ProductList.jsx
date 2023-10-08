@@ -79,7 +79,6 @@ function ProductList() {
     <Container fluid>
       <h1>List of Products at ECC</h1>
       <p>Total number of products at ECC: {products.length}</p>
-      {currentPersona === "Lisa" && <Button onClick={handleCreate}>Create Product</Button>}
         <Container>
           <InputGroup className="mb-3">
             <InputGroup.Text id="basic-addon1">{currentPersona === 'Lisa' ? 'Search by Scrum Master Name' : 'Search by Developer Name'}</InputGroup.Text>
@@ -95,6 +94,7 @@ function ProductList() {
             <Button variant="outline-secondary" onClick={() => {setSearchQuery("")}}>
               <MdClear />
             </Button>
+            {currentPersona === "Lisa" && <Button onClick={handleCreate} variant='outline-primary'>Create Product</Button>}
           </InputGroup>
         </Container>
       <Table responsive striped bordered hover>

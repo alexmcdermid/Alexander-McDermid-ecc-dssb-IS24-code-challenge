@@ -143,21 +143,20 @@ const ProductForm = ({ show, handleClose, isEdit, productData: initialProductDat
       </Modal.Footer>
     </Modal>
     {showSuccessAlert && 
-  <Alert 
-    variant="success" 
-    style={{ 
-      position: 'fixed', 
-      top: 0, 
-      right: 0, 
-      zIndex: 9999, 
-      maxWidth: '400px'
-    }} 
-    onClose={() => setShowSuccessAlert(false)} 
-    dismissible
-  >
-    Product successfully created!
-  </Alert>
-}
+      <Alert 
+        variant="success" 
+        style={{ 
+          position: 'fixed', 
+          bottom: '10px', 
+          right: '10px', 
+          zIndex: 9999, 
+          maxWidth: '300px',
+        }} 
+        onClose={() => setShowSuccessAlert(false)} 
+        dismissible>
+        Product successfully created!
+      </Alert>
+    }
   </>
   
   );
