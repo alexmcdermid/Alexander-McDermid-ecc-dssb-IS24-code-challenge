@@ -121,7 +121,7 @@ function ProductList() {
             <th>
             Product Number
               <Button 
-                variant="btn" 
+                variant="btn btn-link" 
                 size="sm" 
                 className="p-0 ms-1 mb-1"
                 onClick={handleSortToggle}>
