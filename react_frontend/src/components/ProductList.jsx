@@ -15,6 +15,7 @@ function ProductList() {
   const [showModal, setShowModal] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [isDescending, setIsDescending] = useState(false);
 
   const handleCreate = () => {
     setIsEdit(false);
@@ -75,6 +76,8 @@ function ProductList() {
     fetchProducts();
   }, []);
 
+  const displayedProducts = isDescending ? [...filteredProducts].reverse() : filteredProducts;
+
   return (
     <Container fluid>
       <h1>List of Products at ECC</h1>
@@ -100,7 +103,16 @@ function ProductList() {
       <Table responsive striped bordered hover>
         <thead>
           <tr>
-            <th>Product Number</th>
+            <th>
+              Product Number
+              <Button 
+                variant="btn" 
+                size="sm" 
+                className="p-0 ms-1"
+                onClick={() => setIsDescending(!isDescending)}>
+                {isDescending ? "↓" : "↑"}
+              </Button>
+            </th>            
             <th>Product Name</th>
             <th>Scrum Master</th>
             <th>Product Owner</th>
@@ -114,7 +126,7 @@ function ProductList() {
           </tr>
         </thead>
         <tbody>
-          {filteredProducts.map((product) => (
+          {displayedProducts.map((product) => (
             <tr key={product.productId}>
               <td>{product.productId}</td>
               <td>{product.productName}</td>

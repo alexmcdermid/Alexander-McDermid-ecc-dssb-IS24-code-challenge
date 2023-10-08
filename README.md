@@ -24,6 +24,7 @@ This repository contains a web application that tracks and manages mock Web Appl
 ### Bonus Features
 - **Search by Scrum Master**: Lisa can search for products by the name of the Scrum Master. The list will update to only show products where the searched Scrum Master is involved.
 - **Search by Developer**: Alan can search for products by the name of a Developer. The list will update to only show products where the searched Developer is involved.
+- **Toggle Product ID Order**: A toggle on the Product ID table header to order by Ascending or Descending.
 - **Swagger Documentation**: All API endpoints are documented using Swagger and can be accessed locally at `http://localhost:3000/api/api-docs`.
 
 ### Additional Information
