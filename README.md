@@ -16,8 +16,8 @@ This repository contains a web application that tracks and manages Web Applicati
 - **Edit Existing Product**: Alan can edit existing product details. Fields available for editing include Product Name, Scrum Master, Product Owner, Developer Names, Methodology, and Location (GitHub repository link).
 
 ### Bonus Features
-- **Search by Scrum Master**: Users can search for products by the name of the Scrum Master. The list will update to only show products where the searched Scrum Master is involved.
-- **Search by Developer**: Users can search for products by the name of a Developer. The list will update to only show products where the searched Developer is involved.
+- **Search by Scrum Master**: Lisa can search for products by the name of the Scrum Master. The list will update to only show products where the searched Scrum Master is involved.
+- **Search by Developer**: Alan can search for products by the name of a Developer. The list will update to only show products where the searched Developer is involved.
 
 ### Additional Information
 - **Automatic Product Number Generation**: When adding a new product, the Product Number is automatically generated and will not collide with existing Product Numbers.
