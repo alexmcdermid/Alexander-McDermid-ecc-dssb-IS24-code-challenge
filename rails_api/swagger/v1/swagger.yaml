@@ -101,7 +101,6 @@ definitions:
   Product:
     type: object
     required:
-      - productId
       - productName
       - productOwnerName
       - scrumMasterName
