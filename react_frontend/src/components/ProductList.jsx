@@ -6,12 +6,30 @@ import Button from 'react-bootstrap/esm/Button';
 import { usePersona } from '../controllers/PersonaContext';
 import Container from 'react-bootstrap/esm/Container';
 import {MdClear} from 'react-icons/md'
+import ProductForm from './ProductForm'
 
 function ProductList() {
   const { currentPersona } = usePersona();
   const [products, setProducts] = useState([]); // State for storing products
   const [searchQuery, setSearchQuery] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
+  const handleCreate = () => {
+    setIsEdit(false);
+    setShowModal(true);
+  };
+
+  const handleEdit = (product) => {
+    setIsEdit(true);
+    setSelectedProduct(product);
+    setShowModal(true);
+  };
+
+  const handleClose = () => {
+    setShowModal(false);
+  };
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
@@ -40,29 +58,28 @@ function ProductList() {
     );
   }
 
-  useEffect(() => {
-    // Define a function to fetch products from the API
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch('http://localhost:3000/api/product');
-        if (!response.ok) {
-          throw new Error('Failed to fetch products');
-        }
-        const data = await response.json();
-        setProducts(data); // Update the products state with fetched data
-      } catch (error) {
-        console.error('Error fetching products:', error);
+  const fetchProducts = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/api/product');
+      if (!response.ok) {
+        throw new Error('Failed to fetch products');
       }
-    };
+      const data = await response.json();
+      setProducts(data);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+  };
 
-    fetchProducts(); // Call the fetchProducts function when the component mounts
-  }, []); // The empty dependency array ensures this effect runs only once
-
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
   return (
     <Container fluid>
       <h1>List of Products at ECC</h1>
       <p>Total number of products at ECC: {products.length}</p>
+      {currentPersona === "Lisa" && <Button onClick={handleCreate}>Create Product</Button>}
         <Container>
           <InputGroup className="mb-3">
             <InputGroup.Text id="basic-addon1">{currentPersona === 'Lisa' ? 'Search by Scrum Master Name' : 'Search by Developer Name'}</InputGroup.Text>
@@ -112,13 +129,15 @@ function ProductList() {
                 </a>
               </td>
               {currentPersona === 'Alan' && (
-                <th>Edit</th>
+                <td><Button variant="link" className="pt-0" onClick={() => handleEdit(product)}> Edit</Button></td>
               )}
             </tr>
           ))}
         </tbody>
       </Table>
       {filteredProducts.length < products.length && <p>Total number of search results: {filteredProducts.length}</p>}
+      {/* modal jsx component for create and edit */}
+      <ProductForm show={showModal} handleClose={handleClose} isEdit={isEdit} productData={selectedProduct} onRefreshProducts={fetchProducts}/>
     </Container>
   );
 }

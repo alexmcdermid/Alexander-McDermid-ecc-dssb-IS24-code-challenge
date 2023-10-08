@@ -9,7 +9,12 @@ class Product
   attr_accessor :productId, :productName, :productOwnerName, :Developers, :scrumMasterName, :startDate, :methodology, :location
 
   validates :productId, presence: true
-  validate :product_id_must_be_unique # this would usually be done with activerecord (ORM)
+  validates :productName, presence: true
+  validates :methodology, inclusion: { in: ['', 'Agile', 'Waterfall'], message: "%{value} is not a valid methodology. Only Agile or Waterfall are allowed." }  
+
+  # these would usually be done with activerecord (ORM)
+  validate :product_id_must_be_unique
+  validate :developers_must_be_array_of_strings
 
   def product_id_must_be_unique
     existing_product = self.class.find_by_product_id(productId)
@@ -18,8 +23,12 @@ class Product
     end
   end
 
-  validates :productName, presence: true
-
+  def developers_must_be_array_of_strings
+    developers = self.Developers || [] # Access as an attribute
+    unless developers.is_a?(Array) && developers.all? { |item| item.is_a?(String) }
+      errors.add(:Developers, 'must be an array of strings')
+    end
+  end
   # add initializer so we don't have nil issues in frontend
   def initialize(attributes = {})
     super
@@ -45,15 +54,17 @@ class Product
     def initialize_products
       random_name = RandomNameGenerator.new
       random_name_syllables = 3
+      methodologies = ['Agile', 'Waterfall']
       1.upto(40) do |i|
+        random_methodology = methodologies.sample
         products << new(
-          productId: i,
+          productId: "P#{i}",
           productName: "Product #{i}",
           productOwnerName: random_name.compose(random_name_syllables),
           Developers: [random_name.compose(random_name_syllables), random_name.compose(random_name_syllables), random_name.compose(random_name_syllables), random_name.compose(random_name_syllables), random_name.compose(random_name_syllables)],
           scrumMasterName: random_name.compose(random_name_syllables),
           startDate: Date.today - i.days,
-          methodology: "Agile",
+          methodology: random_methodology,
           location: "Location #{i}"
         )
       end
@@ -64,7 +75,7 @@ class Product
     end
 
     def find_by_product_id(id)
-      products.find { |product| product.productId == id.to_i }
+      products.find { |product| product.productId == id }
     end
   end
 

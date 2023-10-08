@@ -17,7 +17,7 @@ module Api
 
     def create
       @product = Product.new(product_params)
-      @product.productId = @product.productId.to_i # Convert to integer since it is a string (serialized)
+      @product.productId = @product.productId
       if @product.valid?
         Product.products << @product
         render json: @product, status: :created
@@ -48,7 +48,7 @@ module Api
     private
 
     def product_params
-      params.permit(:id, :productId, :productName, :productOwnerName, :Developers, :scrumMasterName, :startDate, :methodology, :location)
+      params.permit(:id, :product, :productId, :productName, :productOwnerName, :Developers, :scrumMasterName, :startDate, :methodology, :location)
     end
   end
 end
