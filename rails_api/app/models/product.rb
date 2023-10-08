@@ -77,7 +77,7 @@ class Product
           scrumMasterName: random_name.compose(random_name_syllables),
           startDate: (Date.today - 1.month) + i.days,
           methodology: random_methodology,
-          location: "Location #{i}"
+          location: "Location#{i}"
         )
       end
     end
