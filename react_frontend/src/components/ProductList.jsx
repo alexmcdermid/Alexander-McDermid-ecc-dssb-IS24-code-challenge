@@ -137,7 +137,7 @@ function ProductList() {
       </Table>
       {filteredProducts.length < products.length && <p>Total number of search results: {filteredProducts.length}</p>}
       {/* modal jsx component for create and edit */}
-      <ProductForm show={showModal} handleClose={handleClose} isEdit={isEdit} productData={selectedProduct} initialProductLength={products.length} onRefreshProducts={fetchProducts}/>
+      <ProductForm show={showModal} handleClose={handleClose} isEdit={isEdit} productData={selectedProduct} onRefreshProducts={fetchProducts}/>
     </Container>
   );
 }

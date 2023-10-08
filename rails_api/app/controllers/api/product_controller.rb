@@ -17,7 +17,8 @@ module Api
 
     def create
       @product = Product.new(product_params)
-      @product.productId = @product.productId.to_i # Convert to integer since it is a string (serialized)
+      max_id = Product.products.map(&:productId).max || 0
+      @product.productId = max_id + 1
       if @product.valid?
         Product.products << @product
         render json: @product, status: :created

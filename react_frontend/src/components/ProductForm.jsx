@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button, Form, Alert, InputGroup } from 'react-bootstrap';
 
-const ProductForm = ({ show, handleClose, isEdit, productData: initialProductData, initialProductLength, onRefreshProducts }) => {
+const ProductForm = ({ show, handleClose, isEdit, productData: initialProductData, onRefreshProducts }) => {
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [errorMessage, setErrorMessage] = useState([]);
   const [productData, setProductData] = useState({
@@ -90,9 +90,9 @@ const ProductForm = ({ show, handleClose, isEdit, productData: initialProductDat
       const index = parseInt(name.replace('Developer', ''), 10);
       const newDevelopers = [...productData.Developers];
       newDevelopers[index] = value;
-      setProductData({ ...productData, Developers: newDevelopers, productId: initialProductLength + 1 });
+      setProductData({ ...productData, Developers: newDevelopers });
     } else {
-      setProductData({ ...productData, [name]: value, productId: initialProductLength + 1 });
+      setProductData({ ...productData, [name]: value });
     }
   };
 
