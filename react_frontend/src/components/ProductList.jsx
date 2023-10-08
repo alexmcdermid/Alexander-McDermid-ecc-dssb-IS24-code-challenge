@@ -38,24 +38,29 @@ function ProductList() {
 
   let filteredProducts;
 
+  // Function to check if the name contains all the words in the query
+  const doesNameContainQuery = (name, query) => {
+    const nameParts = name.toLowerCase().split(' ');
+    const queryParts = query.toLowerCase().split(' ');
+
+    return queryParts.every((queryPart) => 
+      nameParts.some((namePart) => namePart.startsWith(queryPart))
+    );
+  };
+
   if (searchQuery === ''){
     filteredProducts = products;
   } else if (currentPersona === 'Lisa') {
     // Lisa's search logic (filter by scrumMasterName)
     filteredProducts = products.filter((product) =>
-      product.scrumMasterName && (
-      product.scrumMasterName
-        .toLowerCase()
-        .split(' ')
-        .some((namePart) => namePart.startsWith(searchQuery.toLowerCase())))
-        );
+    product.scrumMasterName && doesNameContainQuery(product.scrumMasterName, searchQuery))
   } else if (currentPersona === 'Alan') {
     // Alan's search logic (filter by Developers)
     filteredProducts = products.filter((product) =>
       product.Developers && (
       product.Developers
-        .map((name) => name.toLowerCase())
-        .some((name) => name.startsWith(searchQuery.toLowerCase())))
+        .some((name) => doesNameContainQuery(name, searchQuery))
+      )
     );
   }
 
@@ -114,13 +119,13 @@ function ProductList() {
         <thead>
           <tr>
             <th>
-              Product Number
+            Product Number
               <Button 
                 variant="btn" 
                 size="sm" 
-                className="p-0 ms-1"
+                className="p-0 ms-1 mb-1"
                 onClick={handleSortToggle}>
-                {isDescending ? "↓" : "↑"}
+                {isDescending ? "(↓Desc)" : "(↑Asc)"}
               </Button>
             </th>            
             <th>Product Name</th>
