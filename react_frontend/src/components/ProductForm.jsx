@@ -5,8 +5,10 @@ const ProductForm = ({ show, handleClose, isEdit, productData: initialProductDat
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [errorMessage, setErrorMessage] = useState([]);
   const [productData, setProductData] = useState({
+    // should probably let the server handle this increment (more ORM stuff)
     productId: initialProductData.length + 1,
     productName: '',
+    scrumMasterName: '',
     productOwnerName: '',
     Developers: Array(5).fill(''),
     startDate: '',
@@ -17,6 +19,7 @@ const ProductForm = ({ show, handleClose, isEdit, productData: initialProductDat
     setProductData({
       productId: '',
       productName: '',
+      scrumMasterName: '',
       productOwnerName: '',
       Developers: Array(5).fill(''),
       startDate: '',
@@ -118,7 +121,16 @@ const ProductForm = ({ show, handleClose, isEdit, productData: initialProductDat
             />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>productOwnerName</Form.Label>
+            <Form.Label>Scrum Master</Form.Label>
+            <Form.Control
+              type="text"
+              name="scrumMasterName"
+              value={productData.scrumMasterName}
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>Product Owner</Form.Label>
             <Form.Control
               type="text"
               name="productOwnerName"
@@ -127,7 +139,7 @@ const ProductForm = ({ show, handleClose, isEdit, productData: initialProductDat
             />
           </Form.Group>
           <Form.Group className="mb-3">
-          <Form.Label>Developers</Form.Label>
+          <Form.Label>Developer Names</Form.Label>
             <InputGroup className="mb-3">
               {Array.from({ length: 5 }).map((_, index) => (
                 <Form.Control
@@ -141,7 +153,7 @@ const ProductForm = ({ show, handleClose, isEdit, productData: initialProductDat
             </InputGroup>
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>startDate</Form.Label>
+            <Form.Label>Start Date</Form.Label>
             <Form.Control
               type="text"
               name="startDate"
@@ -156,6 +168,7 @@ const ProductForm = ({ show, handleClose, isEdit, productData: initialProductDat
               value={productData.methodology} 
               onChange={handleChange}
             >
+              <option value="" disabled>Select Methodology</option>
               <option value="Agile">Agile</option>
               <option value="Waterfall">Waterfall</option>
             </Form.Select>
