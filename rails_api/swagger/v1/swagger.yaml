@@ -4,6 +4,17 @@ info:
   title: Product API
 
 paths:
+  /api/health:
+    get:
+      tags:
+        - Health
+      summary: Check the health of the API
+      responses:
+        '200':
+          description: API is healthy
+        '503':
+          description: API is not healthy
+
   /api/product:
     get:
       tags:
@@ -94,10 +105,13 @@ definitions:
       - productName
       - productOwnerName
       - scrumMasterName
+      - Developers
+      - startDate
+      - methodology
     properties:
       productId:
         type: integer
-        description: Must be unique
+        description: Auto-incremented by the backend upon creation, regardless of the ID provided
       productName:
         type: string
       productOwnerName:

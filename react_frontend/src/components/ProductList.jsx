@@ -73,8 +73,18 @@ function ProductList() {
   };
 
   useEffect(() => {
+    const isDescendingFromStorage = localStorage.getItem('isDescending');
+    if (isDescendingFromStorage) {
+      setIsDescending(JSON.parse(isDescendingFromStorage));
+    }  
     fetchProducts();
   }, []);
+
+  const handleSortToggle = () => {
+    const newIsDescending = !isDescending;
+    setIsDescending(newIsDescending);
+    localStorage.setItem('isDescending', JSON.stringify(newIsDescending));
+  };  
 
   const displayedProducts = isDescending ? [...filteredProducts].reverse() : filteredProducts;
 
@@ -109,7 +119,7 @@ function ProductList() {
                 variant="btn" 
                 size="sm" 
                 className="p-0 ms-1"
-                onClick={() => setIsDescending(!isDescending)}>
+                onClick={handleSortToggle}>
                 {isDescending ? "↓" : "↑"}
               </Button>
             </th>            
