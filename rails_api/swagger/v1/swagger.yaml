@@ -6,6 +6,8 @@ info:
 paths:
   /api/product:
     get:
+      tags:
+        - Product
       summary: List all products
       responses:
         '200':
@@ -15,6 +17,8 @@ paths:
             items:
               $ref: '#/definitions/Product'
     post:
+      tags:
+      - Product
       summary: Create a new product
       parameters:
         - in: body
@@ -30,6 +34,8 @@ paths:
           description: Validation error
   /api/product/{id}:
     get:
+      tags:
+        - Product
       summary: Get a specific product by id
       parameters:
         - in: path
@@ -44,6 +50,8 @@ paths:
         '404':
           description: Product not found
     put:
+      tags:
+        - Product
       summary: Update a product
       parameters:
         - in: path
@@ -64,6 +72,8 @@ paths:
         '422':
           description: Validation error
     delete:
+      tags:
+        - Product
       summary: Delete a product
       parameters:
         - in: path
@@ -98,7 +108,7 @@ definitions:
         type: array
         items:
           type: string
-        description: Must be an array of strings and not empty
+        description: Must be an array of strings and not empty and less or equal to 5 strings
       startDate:
         type: string
         format: date
