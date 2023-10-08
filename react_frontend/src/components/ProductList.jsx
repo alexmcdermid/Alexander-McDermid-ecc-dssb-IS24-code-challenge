@@ -120,7 +120,7 @@ function ProductList() {
               <td>{product.productName}</td>
               <td>{product.scrumMasterName}</td>
               <td>{product.productOwnerName}</td>
-              <td>{product.Developers.join(', ')}</td>
+              <td>{product.Developers.filter(Boolean).join(', ')}</td>
               <td>{product.startDate}</td>
               <td>{product.methodology}</td>
               <td>

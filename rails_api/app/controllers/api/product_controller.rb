@@ -48,7 +48,7 @@ module Api
     private
 
     def product_params
-      params.permit(:id, :product, :productId, :productName, :productOwnerName, :Developers, :scrumMasterName, :startDate, :methodology, :location)
+      params.permit(:id, :productId, :productName, :productOwnerName, :scrumMasterName, :startDate, :methodology, :location, Developers: [])
     end
   end
 end

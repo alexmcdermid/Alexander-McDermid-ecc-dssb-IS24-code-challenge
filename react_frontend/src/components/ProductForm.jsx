@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Button, Form, Alert } from 'react-bootstrap';
+import { Modal, Button, Form, Alert, InputGroup } from 'react-bootstrap';
 
 const ProductForm = ({ show, handleClose, isEdit, productData: initialProductData, onRefreshProducts }) => {
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
@@ -8,7 +8,7 @@ const ProductForm = ({ show, handleClose, isEdit, productData: initialProductDat
     productId: '',
     productName: '',
     productOwnerName: '',
-    Developers: [],
+    Developers: Array(5).fill(''),
     startDate: '',
     methodology: ''
   });
@@ -59,7 +59,14 @@ const ProductForm = ({ show, handleClose, isEdit, productData: initialProductDat
   
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setProductData((prevData) => ({ ...prevData, [name]: value }));
+    if (name.startsWith('Developer')) {
+      const index = parseInt(name.replace('Developer', ''), 10);
+      const newDevelopers = [...productData.Developers];
+      newDevelopers[index] = value;
+      setProductData({ ...productData, Developers: newDevelopers });
+    } else {
+      setProductData({ ...productData, [name]: value });
+    }
   };
 
   return (
@@ -105,13 +112,18 @@ const ProductForm = ({ show, handleClose, isEdit, productData: initialProductDat
             />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>Developers</Form.Label>
-            <Form.Control
-              type="text"
-              name="Developers"
-              value={productData.Developers}
-              onChange={handleChange}
-            />
+          <Form.Label>Developers</Form.Label>
+            <InputGroup className="mb-3">
+              {Array.from({ length: 5 }).map((_, index) => (
+                <Form.Control
+                  key={index}
+                  aria-label={`Developer ${index + 1}`}
+                  name={`Developer${index}`}
+                  value={productData.Developers[index] || ''}
+                  onChange={handleChange}
+                />
+              ))}
+            </InputGroup>
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>startDate</Form.Label>
