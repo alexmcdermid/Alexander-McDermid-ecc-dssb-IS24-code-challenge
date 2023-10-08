@@ -52,7 +52,7 @@ const ProductForm = ({ show, handleClose, isEdit, productData: initialProductDat
       let response;
       if (isEdit) {
         response = await fetch(`http://localhost:3000/api/product/${initialProductData.productId}`, {
-          method: 'PATCH',
+          method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
           },

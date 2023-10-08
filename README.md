@@ -1,6 +1,6 @@
 # IS-24 Full Stack Developer Position - Code Challenge
 
-This repository contains a web application that tracks and manages Web Applications developed by the Province of BC.
+This repository contains a web application that tracks and manages mock Web Applications developed by the Province of BC.
 
 ## Table of Contents
 
@@ -10,14 +10,21 @@ This repository contains a web application that tracks and manages Web Applicati
 - [Getting Started](#getting-started)
 
 ## Features
-### Core Features
+
+### API Component
+- **Health Endpoint**: Includes a health endpoint at `http://localhost:3000/api/health` that returns an HTTP 200 response, indicating the API component is healthy.
+- **CRUD Operations**: Supports all basic CRUD operations (`GET`, `POST`, `PUT`, `DELETE`) with appropriate HTTP status codes. For example, retrieving a specific product using `GET http://localhost:3000/api/product/:productId`.
+- **Sample Data**: The API is pre-populated with up to 40 sample products.
+### Frontend Features (User Stories)
 - **View All Products**: Any user can view a list of all products within ECC along with relevant details such as Product Number, Product Name, Scrum Master, Product Owner, Developer Names, Start Date, Methodology, and Location (GitHub repository link).
+- **Switch Between Personas**: Switch between two distinct personas, Lisa and Alan. Different features are available to each user.
 - **Add New Product**: Lisa can add a new product to the list. They must fill in all necessary information including Product Name, Scrum Master, Product Owner, Developer Names, Start Date, and Methodology.
 - **Edit Existing Product**: Alan can edit existing product details. Fields available for editing include Product Name, Scrum Master, Product Owner, Developer Names, Methodology, and Location (GitHub repository link).
 
 ### Bonus Features
 - **Search by Scrum Master**: Lisa can search for products by the name of the Scrum Master. The list will update to only show products where the searched Scrum Master is involved.
 - **Search by Developer**: Alan can search for products by the name of a Developer. The list will update to only show products where the searched Developer is involved.
+- **Swagger Documentation**: All API endpoints are documented using Swagger and can be accessed locally at `http://localhost:3000/api/api-docs`.
 
 ### Additional Information
 - **Automatic Product Number Generation**: When adding a new product, the Product Number is automatically generated and will not collide with existing Product Numbers.

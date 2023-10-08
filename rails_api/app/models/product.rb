@@ -20,7 +20,7 @@ class Product
   def start_date_must_be_valid
     begin
       parsed_date = Date.parse(startDate.to_s)
-      unless parsed_date.strftime('%Y-%m-%d') == startDate
+      unless parsed_date.strftime('%Y-%m-%d') == startDate.to_s
         errors.add(:startDate, 'must be in the format YYYY-MM-DD')
       end
     rescue ArgumentError
