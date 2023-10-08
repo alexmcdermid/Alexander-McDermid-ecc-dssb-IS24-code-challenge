@@ -75,7 +75,7 @@ class Product
           productOwnerName: random_name.compose(random_name_syllables),
           Developers: [random_name.compose(random_name_syllables), random_name.compose(random_name_syllables), random_name.compose(random_name_syllables), random_name.compose(random_name_syllables), random_name.compose(random_name_syllables)],
           scrumMasterName: random_name.compose(random_name_syllables),
-          startDate: Date.today - i.days,
+          startDate: (Date.today - 1.month) + i.days,
           methodology: random_methodology,
           location: "Location #{i}"
         )
