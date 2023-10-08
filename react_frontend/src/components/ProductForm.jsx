@@ -31,8 +31,6 @@ const ProductForm = ({ show, handleClose, isEdit, productData: initialProductDat
       if (isEdit) {
         // API call to update the product
       } else {
-        console.log('Sending:', JSON.stringify(productData));
-
         const response = await fetch(`http://localhost:3000/api/product`, {
           method: 'POST',
           headers: {
