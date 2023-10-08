@@ -180,12 +180,15 @@ const ProductForm = ({ show, handleClose, isEdit, productData: initialProductDat
           {isEdit && 
             <Form.Group className="mb-3">
               <Form.Label>Location</Form.Label>
-              <Form.Control
-                type="text"
-                name="location"
-                value={productData.location}
-                onChange={handleChange}
-              />
+                <InputGroup className="mb-3">
+                  <InputGroup.Text>https://github.com/bcgov/</InputGroup.Text>
+                  <Form.Control
+                          type="text"
+                          name="location"
+                          value={productData.location}
+                          onChange={handleChange}
+                        />
+              </InputGroup>
             </Form.Group>
           }
         </Form>
