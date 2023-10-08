@@ -10,12 +10,14 @@ class Product
 
   validates :productId, presence: true
   validates :productName, presence: true
-  validates :methodology, inclusion: { in: ['', 'Agile', 'Waterfall'], message: "%{value} is not a valid methodology. Only Agile or Waterfall are allowed." }  
+  validates :scrumMasterName, presence: true
+  validates :productOwnerName, presence: true
 
   # these would usually be done with activerecord (ORM)
   validate :product_id_must_be_unique
-  validate :developers_must_be_array_of_strings
+  validate :developers_must_be_array_of_strings_and_not_empty
   validate :start_date_must_be_valid
+  validates :methodology, inclusion: { in: ['Agile', 'Waterfall'], message: "can't be blank, select Agile or Waterfall" }  
 
   def start_date_must_be_valid
     begin
@@ -35,12 +37,20 @@ class Product
     end
   end
 
-  def developers_must_be_array_of_strings
+  def developers_must_be_array_of_strings_and_not_empty
     developers = self.Developers || [] # Access as an attribute
+
     unless developers.is_a?(Array) && developers.all? { |item| item.is_a?(String) }
       errors.add(:Developers, 'must be an array of strings')
     end
+
+    non_empty_developers = developers.reject { |item| item.strip.empty? }
+
+    if non_empty_developers.empty? || non_empty_developers.length < 1
+      errors.add(:Developers, "at least one developer must be present")
+    end
   end
+
   # add initializer so we don't have nil issues in frontend
   def initialize(attributes = {})
     super
