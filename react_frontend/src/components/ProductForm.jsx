@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button, Form, Alert, InputGroup } from 'react-bootstrap';
 
-const ProductForm = ({ show, handleClose, isEdit, productData: initialProductData, onRefreshProducts }) => {
+const ProductForm = ({ show, handleClose, isEdit, productData: initialProductData, initialProductLength, onRefreshProducts }) => {
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [errorMessage, setErrorMessage] = useState([]);
   const [productData, setProductData] = useState({
-    // should probably let the server handle this increment (more ORM stuff)
-    productId: initialProductData.length + 1,
+    productId: '',
     productName: '',
     scrumMasterName: '',
     productOwnerName: '',
@@ -34,6 +33,7 @@ const ProductForm = ({ show, handleClose, isEdit, productData: initialProductDat
     });
     return formattedErrors;
   }
+
 
   useEffect(() => {
     if (!show) {
@@ -90,9 +90,9 @@ const ProductForm = ({ show, handleClose, isEdit, productData: initialProductDat
       const index = parseInt(name.replace('Developer', ''), 10);
       const newDevelopers = [...productData.Developers];
       newDevelopers[index] = value;
-      setProductData({ ...productData, Developers: newDevelopers, productId: initialProductData.length + 1 });
+      setProductData({ ...productData, Developers: newDevelopers, productId: initialProductLength + 1 });
     } else {
-      setProductData({ ...productData, [name]: value, productId: initialProductData.length + 1 });
+      setProductData({ ...productData, [name]: value, productId: initialProductLength + 1 });
     }
   };
 
@@ -139,7 +139,7 @@ const ProductForm = ({ show, handleClose, isEdit, productData: initialProductDat
             />
           </Form.Group>
           <Form.Group className="mb-3">
-          <Form.Label>Developer Names</Form.Label>
+            <Form.Label>Developer Names</Form.Label>
             <InputGroup className="mb-3">
               {Array.from({ length: 5 }).map((_, index) => (
                 <Form.Control
