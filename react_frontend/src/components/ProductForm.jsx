@@ -11,7 +11,8 @@ const ProductForm = ({ show, handleClose, isEdit, productData: initialProductDat
     productOwnerName: '',
     Developers: Array(5).fill(''),
     startDate: '',
-    methodology: ''
+    methodology: '',
+    location: ''
   });
 
   const resetForm = () => {
@@ -22,7 +23,8 @@ const ProductForm = ({ show, handleClose, isEdit, productData: initialProductDat
       productOwnerName: '',
       Developers: Array(5).fill(''),
       startDate: '',
-      methodology: ''
+      methodology: '',
+      location: ''
     });
     setErrorMessage([]) // remove error messages if any
   };
@@ -152,15 +154,17 @@ const ProductForm = ({ show, handleClose, isEdit, productData: initialProductDat
               ))}
             </InputGroup>
           </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label>Start Date</Form.Label>
-            <Form.Control
-              type="text"
-              name="startDate"
-              value={productData.startDate}
-              onChange={handleChange}
-            />
-          </Form.Group>
+          {!isEdit && 
+            <Form.Group className="mb-3">
+              <Form.Label>Start Date</Form.Label>
+              <Form.Control
+                type="text"
+                name="startDate"
+                value={productData.startDate}
+                onChange={handleChange}
+              />
+            </Form.Group>
+          }
           <Form.Group className="mb-3">
             <Form.Label>Methodology</Form.Label>
             <Form.Select 
@@ -173,6 +177,17 @@ const ProductForm = ({ show, handleClose, isEdit, productData: initialProductDat
               <option value="Waterfall">Waterfall</option>
             </Form.Select>
           </Form.Group>
+          {isEdit && 
+            <Form.Group className="mb-3">
+              <Form.Label>Location</Form.Label>
+              <Form.Control
+                type="text"
+                name="location"
+                value={productData.location}
+                onChange={handleChange}
+              />
+            </Form.Group>
+          }
         </Form>
       </Modal.Body>
       <Modal.Footer>
