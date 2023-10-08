@@ -17,7 +17,7 @@ module Api
 
     def create
       @product = Product.new(product_params)
-      @product.productId = @product.productId
+      @product.productId = @product.productId.to_i # Convert to integer since it is a string (serialized)
       if @product.valid?
         Product.products << @product
         render json: @product, status: :created

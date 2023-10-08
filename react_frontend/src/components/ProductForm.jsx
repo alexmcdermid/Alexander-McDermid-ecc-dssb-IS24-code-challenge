@@ -5,7 +5,7 @@ const ProductForm = ({ show, handleClose, isEdit, productData: initialProductDat
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [errorMessage, setErrorMessage] = useState([]);
   const [productData, setProductData] = useState({
-    productId: '',
+    productId: initialProductData.length + 1,
     productName: '',
     productOwnerName: '',
     Developers: Array(5).fill(''),
@@ -87,9 +87,9 @@ const ProductForm = ({ show, handleClose, isEdit, productData: initialProductDat
       const index = parseInt(name.replace('Developer', ''), 10);
       const newDevelopers = [...productData.Developers];
       newDevelopers[index] = value;
-      setProductData({ ...productData, Developers: newDevelopers });
+      setProductData({ ...productData, Developers: newDevelopers, productId: initialProductData.length + 1 });
     } else {
-      setProductData({ ...productData, [name]: value });
+      setProductData({ ...productData, [name]: value, productId: initialProductData.length + 1 });
     }
   };
 
@@ -108,15 +108,6 @@ const ProductForm = ({ show, handleClose, isEdit, productData: initialProductDat
           </ol>
         )}
         <Form>
-          <Form.Group className="mb-3">
-            <Form.Label>Product ID</Form.Label>
-            <Form.Control
-              type="text"
-              name="productId"
-              value={productData.productId}
-              onChange={handleChange}
-            />
-          </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>Product Name</Form.Label>
             <Form.Control

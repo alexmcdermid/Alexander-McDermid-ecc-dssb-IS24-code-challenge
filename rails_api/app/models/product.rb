@@ -70,7 +70,7 @@ class Product
       1.upto(40) do |i|
         random_methodology = methodologies.sample
         products << new(
-          productId: "P#{i}",
+          productId: i,
           productName: "Product #{i}",
           productOwnerName: random_name.compose(random_name_syllables),
           Developers: [random_name.compose(random_name_syllables), random_name.compose(random_name_syllables), random_name.compose(random_name_syllables), random_name.compose(random_name_syllables), random_name.compose(random_name_syllables)],
@@ -87,7 +87,7 @@ class Product
     end
 
     def find_by_product_id(id)
-      products.find { |product| product.productId == id }
+      products.find { |product| product.productId == id.to_i }
     end
   end
 
