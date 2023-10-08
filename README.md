@@ -66,6 +66,12 @@ To run the solution using Docker Compose, you'll find a `docker-compose.yml` fil
 
 This will start up all the necessary services as defined in the `docker-compose.yml` file.
 
+4. Navigate to `http://localhost:3001/` in your browser of choice.
+
+    ```bash
+    http://localhost:3001/
+    ```
+
 ### Without Docker (Optional)
 
 #### For Backend (Rails)
