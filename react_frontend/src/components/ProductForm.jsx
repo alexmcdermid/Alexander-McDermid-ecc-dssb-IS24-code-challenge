@@ -159,13 +159,15 @@ const ProductForm = ({ show, handleClose, isEdit, productData: initialProductDat
             />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>methodology</Form.Label>
-            <Form.Control
-              type="text"
-              name="methodology"
-              value={productData.methodology}
+            <Form.Label>Methodology</Form.Label>
+            <Form.Select 
+              name="methodology" 
+              value={productData.methodology} 
               onChange={handleChange}
-            />
+            >
+              <option value="Agile">Agile</option>
+              <option value="Waterfall">Waterfall</option>
+            </Form.Select>
           </Form.Group>
         </Form>
       </Modal.Body>
