@@ -36,8 +36,8 @@ gem "rack-cors"
 gem "random_name_generator"
 
 # swagger
-gem "swagger-blocks"
-gem "swagger-ui-rails"
+gem "rswag-api"
+gem "rswag-ui"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
