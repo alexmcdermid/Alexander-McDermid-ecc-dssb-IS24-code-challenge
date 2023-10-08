@@ -58,13 +58,11 @@ To run the solution using Docker Compose, you'll find a `docker-compose.yml` fil
     cd Alexander-McDermid-ecc-dssb-IS24-code-challenge
     ```
 
-3. Run Docker Compose.
+3. Run Docker Compose. This will start up all the necessary services as defined in the `docker-compose.yml` file.
 
     ```bash
     docker-compose up
     ```
-
-This will start up all the necessary services as defined in the `docker-compose.yml` file.
 
 4. Navigate to `http://localhost:3001/` in your browser of choice.
 
