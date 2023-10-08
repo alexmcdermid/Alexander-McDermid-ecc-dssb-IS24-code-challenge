@@ -17,7 +17,7 @@ class Product
   validate :product_id_must_be_unique
   validate :developers_must_be_array_of_strings_and_not_empty_and_max_five
   validate :start_date_must_be_valid
-  validates :methodology, inclusion: { in: ['Agile', 'Waterfall'], message: "can't be blank, select Agile or Waterfall" }  
+  validates :methodology, inclusion: { in: ['Agile', 'Waterfall'], message: "can't be blank, select Agile or Waterfall" }
 
   def start_date_must_be_valid
     begin
@@ -86,9 +86,11 @@ class Product
         products << new(
           productId: i,
           productName: "Product #{i}",
-          productOwnerName: random_name.compose(random_name_syllables),
-          Developers: [random_name.compose(random_name_syllables), random_name.compose(random_name_syllables), random_name.compose(random_name_syllables), random_name.compose(random_name_syllables), random_name.compose(random_name_syllables)],
-          scrumMasterName: random_name.compose(random_name_syllables),
+          productOwnerName: "#{random_name.compose(random_name_syllables)} #{random_name.compose(random_name_syllables)}",
+          Developers: Array.new(rand(1..5)) do
+            "#{random_name.compose(random_name_syllables)} #{random_name.compose(random_name_syllables)}"
+          end,
+          scrumMasterName: "#{random_name.compose(random_name_syllables)} #{random_name.compose(random_name_syllables)}",
           startDate: (Date.today - 1.month) + i.days,
           methodology: random_methodology,
           location: "Location#{i}"
