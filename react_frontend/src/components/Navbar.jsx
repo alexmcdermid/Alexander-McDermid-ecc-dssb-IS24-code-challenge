@@ -8,9 +8,11 @@ import { BsFillSunFill, BsFillMoonStarsFill } from 'react-icons/bs'
 import { usePersona } from '../controllers/PersonaContext';
 
 function NavBar() {
+  // Persona and Theme context
   const { darkMode, toggleTheme } = useTheme();
   const { currentPersona, setPersona } = usePersona();
 
+  // function to handle change for the persona context
   const handlePersonaChange = (persona) => {
     setPersona(persona); 
   };
