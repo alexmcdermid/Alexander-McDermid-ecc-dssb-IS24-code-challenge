@@ -8,35 +8,42 @@ import Container from 'react-bootstrap/esm/Container';
 import {MdClear} from 'react-icons/md'
 import ProductForm from './ProductForm'
 
+// Main ProductList component
 function ProductList() {
+  // Persona context
   const { currentPersona } = usePersona();
-  const [products, setProducts] = useState([]); // State for storing products
-  const [searchQuery, setSearchQuery] = useState('');
-  const [showModal, setShowModal] = useState(false);
-  const [isEdit, setIsEdit] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const [isDescending, setIsDescending] = useState(false);
 
+  // State variables
+  const [products, setProducts] = useState([]); // List of products
+  const [searchQuery, setSearchQuery] = useState(''); // Search query string
+  const [showModal, setShowModal] = useState(false); // Show/Hide modal
+  const [isEdit, setIsEdit] = useState(false); // Edit/Create mode for modal
+  const [selectedProduct, setSelectedProduct] = useState(null); // Selected product for edit
+  const [isDescending, setIsDescending] = useState(false); // Sort order
+
+  // Helper Functions
+  // Function to open create form
   const handleCreate = () => {
     setIsEdit(false);
     setShowModal(true);
   };
 
+  // Function to open edit form
   const handleEdit = (product) => {
     setIsEdit(true);
     setSelectedProduct(product);
     setShowModal(true);
   };
 
+  // Function to close modal
   const handleClose = () => {
     setShowModal(false);
   };
 
+  // Function to handle search input change
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
-
-  let filteredProducts;
 
   // Function to check if the name contains all the words in the query
   const doesNameContainQuery = (name, query) => {
@@ -47,6 +54,30 @@ function ProductList() {
       nameParts.some((namePart) => namePart.startsWith(queryPart))
     );
   };
+
+  // Function to toggle sort order
+  const handleSortToggle = () => {
+    const newIsDescending = !isDescending;
+    setIsDescending(newIsDescending);
+    localStorage.setItem('isDescending', JSON.stringify(newIsDescending));
+  };  
+
+  // Function to fetch products from the API
+  const fetchProducts = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/api/product');
+      if (!response.ok) {
+        throw new Error('Failed to fetch products');
+      }
+      const data = await response.json();
+      setProducts(data);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+  };
+
+  // Logic for filtering products based on persona and query
+  let filteredProducts;
 
   if (searchQuery === ''){
     filteredProducts = products;
@@ -64,33 +95,19 @@ function ProductList() {
     );
   }
 
-  const fetchProducts = async () => {
-    try {
-      const response = await fetch('http://localhost:3000/api/product');
-      if (!response.ok) {
-        throw new Error('Failed to fetch products');
-      }
-      const data = await response.json();
-      setProducts(data);
-    } catch (error) {
-      console.error('Error fetching products:', error);
-    }
-  };
-
+  // Effect for initialization
   useEffect(() => {
+    // Set the 'isDescending' flag in local storage
     const isDescendingFromStorage = localStorage.getItem('isDescending');
     if (isDescendingFromStorage) {
       setIsDescending(JSON.parse(isDescendingFromStorage));
     }  
+
+    // Fetch initial product data
     fetchProducts();
   }, []);
 
-  const handleSortToggle = () => {
-    const newIsDescending = !isDescending;
-    setIsDescending(newIsDescending);
-    localStorage.setItem('isDescending', JSON.stringify(newIsDescending));
-  };  
-
+  // Final list of products to display
   const displayedProducts = isDescending ? [...filteredProducts].reverse() : filteredProducts;
 
   return (

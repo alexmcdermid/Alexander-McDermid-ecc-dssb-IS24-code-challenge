@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Modal, Button, Form, Alert, InputGroup } from 'react-bootstrap';
 
 const ProductForm = ({ show, handleClose, isEdit, productData: initialProductData, onRefreshProducts }) => {
+  // State variables
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [errorMessage, setErrorMessage] = useState([]);
   const [productData, setProductData] = useState({
@@ -15,6 +16,8 @@ const ProductForm = ({ show, handleClose, isEdit, productData: initialProductDat
     location: ''
   });
 
+  // Helper Functions
+  // Resets form to default state
   const resetForm = () => {
     setProductData({
       productId: '',
@@ -29,6 +32,7 @@ const ProductForm = ({ show, handleClose, isEdit, productData: initialProductDat
     setErrorMessage([]) // remove error messages if any
   };
 
+  // Function to format errors for display
   const formatErrors = (errors) => {
     const formattedErrors = Object.keys(errors).map((key) => {
       return `${key} : ${errors[key].join(', ')}`
@@ -36,8 +40,9 @@ const ProductForm = ({ show, handleClose, isEdit, productData: initialProductDat
     return formattedErrors;
   }
 
-
+  // Effect for initialization
   useEffect(() => {
+    // Resets the form on modal close or sets data when editing
     if (!show) {
       resetForm();
     } else {
@@ -47,6 +52,8 @@ const ProductForm = ({ show, handleClose, isEdit, productData: initialProductDat
     }
   }, [isEdit, initialProductData, show]);
 
+  // Event Handlers
+  // Handles form submission
   const handleSubmit = async () => {
     try {
       let response;
@@ -85,6 +92,7 @@ const ProductForm = ({ show, handleClose, isEdit, productData: initialProductDat
     }
   };  
   
+  // Handles input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name.startsWith('Developer')) {
