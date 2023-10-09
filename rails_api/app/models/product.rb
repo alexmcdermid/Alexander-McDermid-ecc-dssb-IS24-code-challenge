@@ -114,6 +114,8 @@ class Product
   # Update product attributes
   def update(attributes)
     attributes.each do |key, value|
+      next if key == 'productId'  # Skip updating the productId
+
       send("#{key}=", value) if respond_to?("#{key}=")
     end
   end

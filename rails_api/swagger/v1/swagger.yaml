@@ -43,14 +43,14 @@ paths:
             $ref: '#/definitions/Product'
         '422':
           description: Validation error
-  /api/product/{id}:
+  /api/product/{productId}:
     get:
       tags:
         - Product
       summary: Get a specific product by id
       parameters:
         - in: path
-          name: id
+          name: productId
           required: true
           type: integer
       responses:
@@ -66,7 +66,7 @@ paths:
       summary: Update a product
       parameters:
         - in: path
-          name: id
+          name: productId
           required: true
           type: integer
         - in: body
@@ -88,7 +88,7 @@ paths:
       summary: Delete a product
       parameters:
         - in: path
-          name: id
+          name: productId
           required: true
           type: integer
       responses:
@@ -111,7 +111,7 @@ definitions:
     properties:
       productId:
         type: integer
-        description: Not required for create, ID auto-incremented by the backend upon creation, regardless of the ID provided
+        description: Not required for create, ID auto-incremented by the backend upon creation, regardless of the ID provided. I've also protected productId from update in backend, regardless of what value is passed in for productId on update, it will not update the productId (TODO this needs to be clarified by client).
       productName:
         type: string
       productOwnerName:
