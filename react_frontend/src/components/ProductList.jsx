@@ -120,6 +120,7 @@ function ProductList() {
             <Form.Control
               type="text"
               placeholder='Example: Alex McDermid'
+              name={currentPersona === 'Lisa' ? 'Search by Scrum Master Name' : 'Search by Developer Name'}
               value={searchQuery}
               onChange={handleSearchChange}
               aria-label={currentPersona === 'Lisa' ? 'Search by Scrum Master Name' : 'Search by Developer Name'}

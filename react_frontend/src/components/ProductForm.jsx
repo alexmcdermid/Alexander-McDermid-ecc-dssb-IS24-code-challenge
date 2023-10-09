@@ -121,40 +121,44 @@ const ProductForm = ({ show, handleClose, isEdit, productData: initialProductDat
         )}
         <Form>
           <Form.Group className="mb-3">
-            <Form.Label>Product Name</Form.Label>
+            <Form.Label htmlFor="productName">Product Name</Form.Label>
             <Form.Control
               type="text"
               name="productName"
+              id="productName"
               value={productData.productName}
               onChange={handleChange}
             />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>Scrum Master</Form.Label>
+            <Form.Label htmlFor="scrumMasterName">Scrum Master</Form.Label>
             <Form.Control
               type="text"
               name="scrumMasterName"
+              id="scrumMasterName"
               value={productData.scrumMasterName}
               onChange={handleChange}
             />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>Product Owner</Form.Label>
+            <Form.Label htmlFor="productOwnerName">Product Owner</Form.Label>
             <Form.Control
               type="text"
               name="productOwnerName"
+              id="productOwnerName"
               value={productData.productOwnerName}
               onChange={handleChange}
             />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>Developer Names</Form.Label>
+            <Form.Label htmlFor="Developer1">Developer Names</Form.Label>
             <InputGroup className="mb-3">
               {Array.from({ length: 5 }).map((_, index) => (
                 <Form.Control
                   key={index}
                   aria-label={`Developer ${index + 1}`}
                   name={`Developer${index}`}
+                  id={`Developer${index}`}
                   value={productData.Developers[index] || ''}
                   onChange={handleChange}
                 />
@@ -163,19 +167,21 @@ const ProductForm = ({ show, handleClose, isEdit, productData: initialProductDat
           </Form.Group>
           {!isEdit && 
             <Form.Group className="mb-3">
-              <Form.Label>Start Date</Form.Label>
+              <Form.Label htmlFor="startDate">Start Date</Form.Label>
               <Form.Control
                 type="text"
                 name="startDate"
+                id="startDate"
                 value={productData.startDate}
                 onChange={handleChange}
               />
             </Form.Group>
           }
           <Form.Group className="mb-3">
-            <Form.Label>Methodology</Form.Label>
+            <Form.Label htmlFor="methodology">Methodology</Form.Label>
             <Form.Select 
               name="methodology" 
+              id="methodology"
               value={productData.methodology} 
               onChange={handleChange}
             >
