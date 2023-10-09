@@ -101,6 +101,7 @@ definitions:
   Product:
     type: object
     required:
+      - productId
       - productName
       - productOwnerName
       - scrumMasterName
@@ -110,7 +111,7 @@ definitions:
     properties:
       productId:
         type: integer
-        description: Auto-incremented by the backend upon creation, regardless of the ID provided
+        description: Not required for create, ID auto-incremented by the backend upon creation, regardless of the ID provided
       productName:
         type: string
       productOwnerName:
