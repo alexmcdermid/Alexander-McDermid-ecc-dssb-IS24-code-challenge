@@ -1,24 +1,21 @@
 # frozen_string_literal: true
 
-# app/models/product.rb
-# product model replicating db schema
+# Product Model
+# This class serves as a stand-in for a traditional ActiveRecord (ORM) model.
+# It validates and manages Product attributes.
 class Product
   include ActiveModel::Model
   include ActiveModel::Serialization
 
+  # Attributes
   attr_accessor :productId, :productName, :productOwnerName, :Developers, :scrumMasterName, :startDate, :methodology, :location
 
-  validates :productId, presence: true
-  validates :productName, presence: true
-  validates :scrumMasterName, presence: true
-  validates :productOwnerName, presence: true
-
-  # these would usually be done with activerecord (ORM)
-  validate :product_id_must_be_unique
-  validate :developers_must_be_array_of_strings_and_not_empty_and_max_five
-  validate :start_date_must_be_valid
+  # Validations
+  validates :productId, :productName, :scrumMasterName, :productOwnerName, presence: true
+  validate :product_id_must_be_unique, :developers_must_be_array_of_strings_and_not_empty_and_max_five, :start_date_must_be_valid
   validates :methodology, inclusion: { in: ['Agile', 'Waterfall'], message: "can't be blank, select Agile or Waterfall" }
 
+  # Validate startDate in YYYY-MM-DD format
   def start_date_must_be_valid
     begin
       parsed_date = Date.parse(startDate.to_s)
@@ -30,6 +27,7 @@ class Product
     end
   end
 
+  # Validate unique productId
   def product_id_must_be_unique
     existing_product = self.class.find_by_product_id(productId)
     if existing_product && existing_product != self
@@ -37,6 +35,7 @@ class Product
     end
   end
 
+  # Validate developers attribute
   def developers_must_be_array_of_strings_and_not_empty_and_max_five
     developers = self.Developers || [] # Access as an attribute
 
@@ -46,7 +45,7 @@ class Product
 
     non_empty_developers = developers.reject { |item| item.strip.empty? }
 
-    if non_empty_developers.empty? || non_empty_developers.length < 1
+    if non_empty_developers.empty?
       errors.add(:Developers, "at least one developer must be present")
     end
 
@@ -55,7 +54,7 @@ class Product
     end
   end
 
-  # add initializer so we don't have nil issues in frontend
+  # Initialize default attribute values
   def initialize(attributes = {})
     super
     @productId ||= nil
@@ -98,18 +97,21 @@ class Product
       end
     end
 
+    # Return all products
     def all
       products
     end
 
+    # Find a product by its productId
     def find_by_product_id(id)
       products.find { |product| product.productId == id.to_i }
     end
   end
 
-  # call the method to actual initialize products
+  # call the method to initialize products
   initialize_products
 
+  # Update product attributes
   def update(attributes)
     attributes.each do |key, value|
       send("#{key}=", value) if respond_to?("#{key}=")
