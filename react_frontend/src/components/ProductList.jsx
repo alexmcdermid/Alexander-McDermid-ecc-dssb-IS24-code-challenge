@@ -21,6 +21,7 @@ function ProductList() {
   const [selectedProduct, setSelectedProduct] = useState(null); // Selected product for edit
   const [isDescending, setIsDescending] = useState(false); // Sort order
 
+  // Helper Functions
   // Function to open create form
   const handleCreate = () => {
     setIsEdit(false);
@@ -96,10 +97,13 @@ function ProductList() {
 
   // Effect for initialization
   useEffect(() => {
+    // Set the 'isDescending' flag in local storage
     const isDescendingFromStorage = localStorage.getItem('isDescending');
     if (isDescendingFromStorage) {
       setIsDescending(JSON.parse(isDescendingFromStorage));
     }  
+
+    // Fetch initial product data
     fetchProducts();
   }, []);
 
